@@ -12,3 +12,24 @@ app.use(express.json())
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://to-do-list:b1mLrJ6GrClB2Lwf@cluster0.ifs5i.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+async function run() {
+    await client.connect();
+    const notesCollection = client.db('To-do-list').collection('notes')
+    try {
+        app.post("/note", async (req, res) => {
+            const notes = req.body;
+            const result = await notesCollection.insertOne(notes);
+            res.send(result)
+
+        })
+
+
+    }
+
+    finally {
+
+    }
+}
+run().catch(console.dir);
+
+app.listen(port)
