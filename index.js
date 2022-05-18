@@ -22,7 +22,14 @@ async function run() {
             res.send(result)
 
         })
+        app.get("/note", async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
+            console.log(query);
+            const result = await notesCollection.find(query).toArray();
+            res.send(result)
 
+        })
 
     }
 
