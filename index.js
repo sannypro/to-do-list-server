@@ -30,6 +30,20 @@ async function run() {
             res.send(result)
 
         })
+        app.put("/note/:id", async (req, res) => {
+            const id = req.params.id
+            const doc = req.body
+            const filter = { _id: ObjectId(id) };
+            const upDatedDoc = {
+                $set: doc
+
+            }
+
+            const result = await notesCollection.updateOne(filter, upDatedDoc)
+            res.send(result)
+
+        })
+
 
     }
 
